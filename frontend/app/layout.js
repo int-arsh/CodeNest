@@ -1,0 +1,17 @@
+import { Inter } from "next/font/google";
+import "./globals.css"; // Import global styles here
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata = {
+  title: "Live Code Editor",
+  description: "Collaborative code editing with Next.js and Flask",
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body className={`${inter.className} h-full`}>{children}</body>
+    </html>
+  );
+}
