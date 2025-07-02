@@ -4,7 +4,7 @@ import "./globals.css"; // Import global styles here
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Live Code Editor",
+  title: "CodeNext",
   description: "Collaborative code editing with Next.js and Flask",
 };
 

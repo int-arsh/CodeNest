@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Use navigation hook for App Router
 
 export default function HomePage() {
-  const [roomId, setRoomId] = useState('default-room');
+  const [roomId, setRoomId] = useState('');
   const router = useRouter(); // Hook for programmatic navigation
 
   const handleJoin = (e) => {

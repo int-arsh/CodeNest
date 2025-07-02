@@ -13,7 +13,6 @@ app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'fallback_secret_key')
 CORS(app, resources={r"/*": {"origins": "*"}}) # Allows all origins for development
 
 # Initialize SocketIO with eventlet async mode
-# Make sure you installed eventlet: pip install eventlet
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
 
 # In-memory storage for room code (replace with DB for persistence)
@@ -23,7 +22,7 @@ room_code_store = {}
 def index():
     return jsonify({"message": "Collaborative Editor Backend Running with Eventlet"})
 
-# --- SocketIO Event Handlers --- (Identical to previous example)
+# --- SocketIO Event Handlers 
 
 @socketio.on('connect')
 def handle_connect():
@@ -44,7 +43,7 @@ def handle_join_room(data):
     try:
         join_room(room_id)
         print(f"Client {request.sid} joined room {room_id}")
-        current_code = room_code_store.get(room_id, f'# Welcome to room: {room_id} (Eventlet Backend)\n\nprint("Hello from Eventlet!")')
+        current_code = room_code_store.get(room_id, f'# Welcome to room: {room_id} \n\nprint("Hello")')
         emit('initial_code', {'code': current_code}, room=request.sid)
     except Exception as e:
         print(f"Error joining room {room_id} for {request.sid}: {e}")
@@ -74,5 +73,4 @@ def handle_leave_room(data):
 
 if __name__ == '__main__':
     print("Starting Flask-SocketIO server with Eventlet...")
-    # Use host='0.0.0.0' to make it accessible on your local network
     socketio.run(app, debug=True, host='0.0.0.0', port=5001)

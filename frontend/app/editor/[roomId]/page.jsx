@@ -1,15 +1,15 @@
-"use client"; // VERY IMPORTANT! This component uses client-side hooks and browser APIs
+"use client"; 
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useParams } from 'next/navigation'; // Hook to get dynamic route parameters
+import { useParams } from 'next/navigation'; 
 import Editor from '@monaco-editor/react';
 import { io } from 'socket.io-client';
-// No need for Head component from next/head, manage title via layout.js or metadata
+
 
 // Define socket connection outside component
 let socket = null;
 
-// Simple Debounce function (same as before)
+
 function debounce(func, waitFor) {
   let timeoutId = null;
   return (...args) => {
@@ -131,11 +131,11 @@ export default function EditorPage() {
       editor.focus();
   }
 
-   // Basic Language Detection (Example - same as before)
+   // Language 
   useEffect(() => {
     if (!code) return; // Avoid running on initial empty state
-    // Simple heuristic, can be improved
-    if (code.toLowerCase().includes('def ') || code.toLowerCase().includes('import ')) {
+    // can improve 😞
+    if (code.toLowerCase().includes('def ') || code.toLowerCase().includes('import ') || code.toLowerCase().includes('print')) {
         setEditorLanguage('python');
     } else if (code.toLowerCase().includes('function') || code.toLowerCase().includes('const ') || code.toLowerCase().includes('let ')) {
         setEditorLanguage('javascript');
@@ -150,9 +150,8 @@ export default function EditorPage() {
   }
 
   return (
-    // Use a wrapper div with fixed height for the editor layout
+    
     <div className="flex flex-col h-screen p-1 sm:p-4 bg-gray-100 dark:bg-gray-900">
-        {/* Header remains similar */}
         <header className="flex-shrink-0 mb-2 sm:mb-4 px-2 sm:px-0">
              <h1 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100 truncate">
                 Room: <span className="text-blue-600 dark:text-blue-400 font-mono">{roomId}</span>
@@ -172,7 +171,7 @@ export default function EditorPage() {
                 <div className="flex items-center justify-center h-full text-gray-500">Loading editor...</div>
             ) : (
             <Editor
-                height="100%" // Critical for filling the container
+                height="100%" 
                 language={editorLanguage}
                 theme="vs-dark"
                 value={code}
@@ -189,10 +188,7 @@ export default function EditorPage() {
             />
             )}
         </div>
-         {/* Footer remains similar */}
-         <footer className="flex-shrink-0 mt-2 text-center text-xs text-gray-500 dark:text-gray-400">
-            App Router Version | {new Date().getFullYear()}
-        </footer>
+         
     </div>
   );
 }
